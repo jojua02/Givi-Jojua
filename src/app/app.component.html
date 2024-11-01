@@ -1,0 +1,63 @@
+<h1>{{title}}</h1>
+
+<div *ngFor="let user of usersData">
+  <div *ngIf="user.age > 20">
+    <p>{{ user.firstname }} {{ user.lastname }}  Age: {{ user.age }}</p>
+  </div>
+</div>
+
+
+<app-user (childData)="takeData($event)" [data] = "parentUsersData"></app-user>
+
+
+<div *ngFor="let user of readData" class="users">
+  <p>Id : {{user.id}}</p>
+  <p>{{user.FirstName}}</p>
+  <p>{{user.LastName}}</p>
+  <p>{{user.DateOfBirth}}</p>
+  <p>{{user.PhoneNumber}}</p>
+  <p>{{user.Email}}</p>
+</div>
+
+
+
+<div class="container-fluid">
+  <h2>Registration Form</h2>
+  {{registrationForm.value | json}}
+  <form [formGroup]="registrationForm">
+    <div class="form-group">
+      <label>FirstName</label>
+      <input formControlName="userName" type="text" class="form-control"
+      [class.is-invalid]="registrationForm.get('userName')?.invalid &&
+      registrationForm.get('userName')?.touched">
+
+      <small [class.d-none]="registrationForm.get('userName')?.valid || registrationForm.get('userName')?.untouched" class="text-danger">
+        Please enter a valid Username
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Surname</label>
+      <input formControlName="surname" type="text" class="form-control">
+    </div>
+
+
+
+    <div formGroupName="address">
+      <div class="form-group">
+        <label>id</label>
+        <input formControlName="id" type="number" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Number</label>
+        <input formControlName="phonenumber" type="number" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input formControlName="email" type="text" class="form-control">
+      </div>
+    </div>
+
+    <button class="btn btn-primary">Submit</button>
+
+  </form>  
